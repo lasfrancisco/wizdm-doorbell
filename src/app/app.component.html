@@ -1,0 +1,16 @@
+
+<section fxLayout="column" fxLayoutAlign="center center">
+
+  <p>Simple integration with doorbell.io</p>
+  <p *ngIf="sent">Thank you for the feedback!</p>
+  
+</section>
+
+<wm-doorbell attachments="true" (sent)="sent = $event" #doorbell>
+  <button mat-raised-button color="primary" class="feedback" (click)="doorbell.open()">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
+      <span>Feedback</span>
+      <mat-icon>textsms</mat-icon>
+    </div>
+  </button>
+</wm-doorbell>

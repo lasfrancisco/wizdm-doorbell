@@ -1,0 +1,15 @@
+
+.mat-dialog-content { 
+  max-width: 100%;
+  width: 350px;
+  margin: 0;
+  padding: 0;
+}
+
+.upload {
+  cursor: pointer;
+  span { color: gray; }
+  &:hover {
+    span { color: inherit; }
+  }
+}

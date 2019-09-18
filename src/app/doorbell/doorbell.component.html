@@ -1,0 +1,72 @@
+<ng-content></ng-content>
+
+<ng-template #formTemplate>
+
+  <header mat-dialog-title fxLayout="row" fxLayoutAlign="space-between end">
+    Feedback
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon inline>close</mat-icon>
+    </button>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="send()">
+
+    <mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="10px">
+
+      <!-- Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" cdkFocusInitial>
+        <mat-hint>How do we call you</mat-hint>
+        <mat-error *ngIf="form.controls.name.errors?.required">
+          Please specify your name here
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-hint> We'll keep you posted here</mat-hint>
+        <mat-error *ngIf="form.controls.email.errors?.required">
+          Please specify an email address
+        </mat-error>
+        <mat-error *ngIf="form.controls.email.errors?.email">
+          Ooops! it looks like this is not a valid email
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Message -->
+      <mat-form-field appearance="outline">
+        <mat-label>Message</mat-label>
+        <textarea matInput formControlName="message" cdkTextareaAutosize cdkAutosizeMinRows="3"></textarea>
+        <mat-hint>Let us know your opinion</mat-hint>
+        <mat-error *ngIf="form.controls.message.errors?.required">
+          Please explain yourself here
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Attachments -->
+      <ng-container *ngIf="attachments">
+        <input style="display:none" type="file" multiple (change)="files = $event.target?.files" #openfile />
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px" class="upload" (click)="openfile.click()">
+          <mat-icon>attach_file</mat-icon>
+          <span>Upload files</span>
+          <span *ngIf="files?.length > 0">&nbsp;({{ files.length }})</span>
+        </div>
+      </ng-container>
+
+    </mat-dialog-content>
+    
+    <mat-dialog-actions align="end">
+
+      <mat-progress-bar *ngIf="sending" mode="indeterminate" color="primary"></mat-progress-bar>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">Send</button>
+    </mat-dialog-actions>
+
+    <a class="mat-small mat-link" href="https://doorbell.io">Powered by Doorbell.io</a>
+
+  </form>
+
+</ng-template>

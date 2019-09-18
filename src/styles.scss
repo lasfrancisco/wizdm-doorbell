@@ -1,0 +1,7 @@
+// Resets styles with Normalize.css for browser behaviour consistency
+@import '~normalize.css/normalize.css';
+@import './theme';
+
+// Initialize the global application theme
+// Make sure to call this function only once!
+@include init-application-theme();
